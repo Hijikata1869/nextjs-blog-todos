@@ -19,6 +19,11 @@ export default function MainPage() {
             Visit Blog by SSG + ISR
           </a>
         </Link>
+        <Link href="/task-page">
+          <a className="bg-gray-500 ml-8 hover:bg-gray-600 text-white px-4 py-12 rounded">
+            Visit Task by ISR + CSR
+          </a>
+        </Link>
       </div>
       <svg
         onClick={logout}
