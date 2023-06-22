@@ -18,6 +18,7 @@ export default function TaskPage({ staticfilteredTasks }) {
 
   useEffect(() => {
     mutate();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -55,5 +56,6 @@ export async function getStaticProps() {
 
   return {
     props: { staticfilteredTasks },
+    revalidate: 3,
   };
 }
