@@ -7,6 +7,54 @@ import { getAllTaskIds, getTaskData } from "../../lib/tasks";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
+export default function Post({ staticTask, id }) {
+  const router = useRouter();
+  const { data: task, mutate } = useSWR(
+    `${process.env.NEXT_PUBLIC_RESTAPI_URL}api/detail-task/${id}`,
+    fetcher,
+    {
+      fallbackData: staticTask,
+    }
+  );
+  useEffect(() => {
+    mutate();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  if (router.isFAllback || !task) {
+    return <div>Loading...</div>;
+  }
+  return (
+    <Layout title={task.title}>
+      <span className="mb-4">
+        {"ID: "}
+        {task.id}
+      </span>
+      <p className="mb-4 text-xl font-bold">{task.title}</p>
+      <p className="mb-12">{task.created_at}</p>
+      <Link href="/task-page">
+        <div className="flex cursor-pointer mt-8">
+          <svg
+            className="w-6 h-6 mr-3"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={1.5}
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5"
+            />
+          </svg>
+          <span>Back to task-page</span>
+        </div>
+      </Link>
+    </Layout>
+  );
+}
+
 export async function getStaticPaths() {
   const paths = await getAllTaskIds();
 
