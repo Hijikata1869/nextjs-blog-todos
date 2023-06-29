@@ -52,11 +52,11 @@ export default function TaskForm({ taskCreated }) {
           className="text-black mb-8 px-2 py-1"
           type="text"
           value={selectedTask.title}
-          onChange={
+          onChange={(e) => {
             // スプレッド構文を使用してオブジェクトをコピーすると同時に、プロパティの値を更新するとオブジェクトの一部の値を更新できる。
             // Taskはid, title, created_atのプロパティを持つため、Taskのtitleだけを更新したい場合は以下のようにできる。
-            setSelectedTask({ ...selectedTask, title: e.target.value })
-          }
+            setSelectedTask({ ...selectedTask, title: e.target.value });
+          }}
         />
         <button
           type="submit"
